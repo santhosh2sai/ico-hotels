@@ -7,9 +7,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
+import org.springframework.scheduling.annotation.Async;
 
-@Component
+
 public class SmtpMailSender implements MailSender {
 
 	private static Log log = LogFactory.getLog(SmtpMailSender.class);
@@ -25,6 +25,7 @@ public class SmtpMailSender implements MailSender {
 
 
 	@Override
+	@Async
 	public void send(String to, String subject, String body) throws MessagingException {
 		// TODO Auto-generated method stub
 		

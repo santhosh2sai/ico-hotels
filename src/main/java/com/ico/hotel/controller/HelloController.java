@@ -23,7 +23,7 @@ public class HelloController {
 				MyUtils.getMessage("text",
 						"http://below18.example.com",
 						"http://above18.example.com"));
-		
+		//throw new RuntimeException("An EXception");
 		return "hello";
 	}
 	@RequestMapping("/hello/{id}")

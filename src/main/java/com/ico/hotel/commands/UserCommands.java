@@ -2,23 +2,22 @@ package com.ico.hotel.commands;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.ico.hotel.domain.User;
+import com.ico.hotel.validation.Password;
+import com.ico.hotel.validation.UniqueEmail;
 
 public class UserCommands {
 
-	@NotBlank(message="{blankEmail}")
-	@Email
-	@Size(min=4, max=250, message= "{emailSizeError}")
+	
+	@UniqueEmail
 	private String email;
 	
 	@NotBlank
-	@Email
+	@Size(min=1, max=100)
 	private String name;
-	@NotBlank
-	@Size(min=6, max=32)
+	@Password
 	private String password;
 	
 	public String getEmail() {

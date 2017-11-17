@@ -11,39 +11,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ico.hotel.commands.UserCommands;
+import com.ico.hotel.commands.ForgotPasswordCommand;
 import com.ico.hotel.service.UserService;
 import com.ico.hotel.utils.MyUtils;
 
 @Controller
-@RequestMapping("/signup")
-public class SignUpController {
+@RequestMapping("/forgot-password")
+public class ForgotPasswordController {
 	
-	private static Log log = LogFactory.getLog(SignUpController.class);
-
+	private static Log log = LogFactory.getLog(ForgotPasswordController.class);
+	
 	private UserService userService;
 	
-	public SignUpController(UserService userService) {
+	public ForgotPasswordController(UserService userService) {
 
 		this.userService = userService;
 	}
 
 	@GetMapping
-	public String signup(Model model) {
+	public String forgotPassword(Model model) {
 		
-		model.addAttribute(new UserCommands());
-		return "signup";
+		model.addAttribute(new ForgotPasswordCommand());
+		return "forgot-password";
 	}	
 
 	@PostMapping
-	public String doSignup(@Validated UserCommands user,BindingResult result,RedirectAttributes redirectAttributes
-			) {
-		log.info("enter dosignup");
-		if(result.hasErrors())
-			return "signup";
-		log.info("Email: " +user.getEmail() +"Name:" + user.getName() + "password"  + user.getPassword());
-		userService.signup(user);
-		MyUtils.flash(redirectAttributes, "success", "signupSuccess");
+	public String doForgotPassword(
+			@Validated ForgotPasswordCommand forgotPasswordCommand,
+			BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors())
+			return "forgot-password";
+		
+		userService.forgotPassword(forgotPasswordCommand);
+		MyUtils.flash(redirectAttributes, "success", "forgotPasswordMailSent");
 		return "redirect:/";
 	}	
 }

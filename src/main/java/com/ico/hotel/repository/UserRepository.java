@@ -10,4 +10,5 @@ import com.ico.hotel.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	Optional<User> findByEmail(String email);
+	Optional<User> findByResetPasswordCode(String resetPasswordCode);
 }
